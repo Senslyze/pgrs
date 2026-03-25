@@ -1,0 +1,44 @@
+{
+  "version": "7.0",
+  "screens": [
+    {
+      "id": "DYNAMIC_HELLO_WORLD",
+      "title": "Hello World Screen",
+      "terminal": true,
+      "data": {
+        "hello_text": "${data.hello_text}"
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Welcome to WhatsApp Flows"
+          },
+          {
+            "type": "TextBody",
+            "text": "${data.hello_text}"
+          },
+          {
+            "type": "Button",
+            "id": "NEXT_BUTTON",
+            "text": "Continue",
+            "on-click": {
+              "actions": [
+                {
+                  "name": "navigate",
+                  "next_screen": {
+                    "id": "DYNAMIC_HELLO_WORLD"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "routing_model": {
+    "DYNAMIC_HELLO_WORLD": []
+  }
+}
