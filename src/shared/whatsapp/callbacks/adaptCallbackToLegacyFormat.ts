@@ -14,6 +14,13 @@ export type ParsedMessageReceived = {
   messageId?: string;
   buttonId?: string;
   audioId?: string;
+  imageId?: string;
+  location?: {
+    latitude: number;
+    longitude: number;
+    name?: string;
+    address?: string;
+  };
   messageType?: string;
   phoneNumberId?: string;
 };
@@ -60,7 +67,21 @@ export type ParsedRecommendPropertyFlowResponse = {
   phoneNumberId?: string;
 };
 
-export type ParsedFlowResponse = ParsedBookVisitFlowResponse | ParsedRecommendPropertyFlowResponse;
+export type ParsedMunicipalityGrievanceFlowResponse = {
+  type: "flow_response";
+  flowType: "municipality_grievance";
+  from: string;
+  name: string;
+  messageId?: string;
+  timestamp?: string;
+  flowData: import("../flows/flowResponseSchemas").MunicipalityGrievanceFlowResponseData;
+  phoneNumberId?: string;
+};
+
+export type ParsedFlowResponse =
+  | ParsedBookVisitFlowResponse
+  | ParsedRecommendPropertyFlowResponse
+  | ParsedMunicipalityGrievanceFlowResponse;
 
 export type ParsedWhatsAppCallback = ParsedMessageReceived | ParsedMessageCallback | ParsedFlowResponse;
 
@@ -91,6 +112,39 @@ export const adaptCallbackToLegacyFormat = (
         messageId: transformed.metadata.message_id,
         audioId: transformed.data.id,
         messageType: "audio",
+        phoneNumberId: transformed.metadata.phone_number_id,
+      };
+    }
+
+    case WHATSAPP_CALLBACK_TYPES.IMAGE: {
+      return {
+        type: "message_received",
+        from: transformed.metadata.message_from,
+        name: transformed.metadata.profile_name,
+        message: transformed.data.caption ?? "",
+        timestamp: transformed.metadata.message_timestamp,
+        messageId: transformed.metadata.message_id,
+        imageId: transformed.data.id,
+        messageType: "image",
+        phoneNumberId: transformed.metadata.phone_number_id,
+      };
+    }
+
+    case WHATSAPP_CALLBACK_TYPES.LOCATION: {
+      return {
+        type: "message_received",
+        from: transformed.metadata.message_from,
+        name: transformed.metadata.profile_name,
+        message: "",
+        timestamp: transformed.metadata.message_timestamp,
+        messageId: transformed.metadata.message_id,
+        location: {
+          latitude: transformed.data.latitude,
+          longitude: transformed.data.longitude,
+          name: transformed.data.name,
+          address: transformed.data.address,
+        },
+        messageType: "location",
         phoneNumberId: transformed.metadata.phone_number_id,
       };
     }
@@ -144,6 +198,30 @@ export const adaptCallbackToLegacyFormat = (
             name: transformed.metadata.profile_name,
             flowData: flowResult.flowData,
             errorMessage: flowResult.errorMessage,
+          };
+
+          if (transformed.metadata.message_timestamp) {
+            parsed.timestamp = transformed.metadata.message_timestamp;
+          }
+
+          if (transformed.metadata.message_id) {
+            parsed.messageId = transformed.metadata.message_id;
+          }
+
+          if (transformed.metadata.phone_number_id) {
+            parsed.phoneNumberId = transformed.metadata.phone_number_id;
+          }
+
+          return parsed;
+        }
+
+        if (flowResult.flowType === "municipality_grievance") {
+          const parsed: ParsedMunicipalityGrievanceFlowResponse = {
+            type: "flow_response",
+            flowType: "municipality_grievance",
+            from: transformed.metadata.message_from,
+            name: transformed.metadata.profile_name,
+            flowData: flowResult.flowData,
           };
 
           if (transformed.metadata.message_timestamp) {

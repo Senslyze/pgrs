@@ -25,19 +25,24 @@ export const whatsappStatusCallbackMessageSchema = z
                         status: z.enum(["sent", "delivered", "read", "failed", "deleted"]),
                         timestamp: z.string(),
                         recipient_id: z.string(),
-                        biz_opaque_callback_data: z.string(),
-                        conversation: z.object({
-                          id: z.string(),
-                          origin: z.object({
+                        biz_opaque_callback_data: z.string().optional(),
+                        // Some providers omit conversation/pricing. Keep status callbacks parseable.
+                        conversation: z
+                          .object({
+                            id: z.string(),
+                            origin: z.object({
+                              type: z.string(),
+                            }),
+                          })
+                          .optional(),
+                        pricing: z
+                          .object({
+                            billable: z.boolean(),
+                            pricing_model: z.string(),
+                            category: z.string(),
                             type: z.string(),
-                          }),
-                        }),
-                        pricing: z.object({
-                          billable: z.boolean(),
-                          pricing_model: z.string(),
-                          category: z.string(),
-                          type: z.string(),
-                        }),
+                          })
+                          .optional(),
                       }),
                     ])
                     .rest(z.never()),

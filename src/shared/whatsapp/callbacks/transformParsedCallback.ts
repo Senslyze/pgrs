@@ -42,6 +42,26 @@ export type TransformedWhatsAppCallback =
       };
     }
   | {
+      message_type: typeof WHATSAPP_CALLBACK_TYPES.IMAGE;
+      metadata: WhatsappMessageCallbackCommonMetadata;
+      data: {
+        mime_type: string;
+        sha256: string;
+        id: string;
+        caption?: string;
+      };
+    }
+  | {
+      message_type: typeof WHATSAPP_CALLBACK_TYPES.LOCATION;
+      metadata: WhatsappMessageCallbackCommonMetadata;
+      data: {
+        latitude: number;
+        longitude: number;
+        name?: string;
+        address?: string;
+      };
+    }
+  | {
       message_type: typeof WHATSAPP_CALLBACK_TYPES.BUTTON_REPLY;
       metadata: WhatsappMessageCallbackCommonMetadata;
       data: {
@@ -116,6 +136,46 @@ export const transformParsedWhatsappCallback = (callback: ParsedWhatsAppCallback
       };
     }
 
+    case WHATSAPP_CALLBACK_TYPES.IMAGE: {
+      const value = callback.entry[0].changes[0].value;
+      return {
+        message_type: WHATSAPP_CALLBACK_TYPES.IMAGE,
+        metadata: {
+          phone_number_id: value.metadata.phone_number_id,
+          profile_name: value.contacts[0].profile.name,
+          message_id: value.messages[0].id,
+          message_timestamp: value.messages[0].timestamp,
+          message_from: value.messages[0].from,
+        },
+        data: {
+          mime_type: value.messages[0].image.mime_type,
+          sha256: value.messages[0].image.sha256,
+          id: value.messages[0].image.id,
+          caption: value.messages[0].image.caption,
+        },
+      };
+    }
+
+    case WHATSAPP_CALLBACK_TYPES.LOCATION: {
+      const value = callback.entry[0].changes[0].value;
+      return {
+        message_type: WHATSAPP_CALLBACK_TYPES.LOCATION,
+        metadata: {
+          phone_number_id: value.metadata.phone_number_id,
+          profile_name: value.contacts[0].profile.name,
+          message_id: value.messages[0].id,
+          message_timestamp: value.messages[0].timestamp,
+          message_from: value.messages[0].from,
+        },
+        data: {
+          latitude: value.messages[0].location.latitude,
+          longitude: value.messages[0].location.longitude,
+          name: value.messages[0].location.name,
+          address: value.messages[0].location.address,
+        },
+      };
+    }
+
     case WHATSAPP_CALLBACK_TYPES.BUTTON_REPLY: {
       const value = callback.entry[0].changes[0].value;
       return {
@@ -174,23 +234,24 @@ export const transformParsedWhatsappCallback = (callback: ParsedWhatsAppCallback
 
     case WHATSAPP_CALLBACK_TYPES.STATUS: {
       const value = callback.entry[0].changes[0].value;
+      const status0 = value.statuses[0];
       return {
         message_type: WHATSAPP_CALLBACK_TYPES.STATUS,
         metadata: {
           phone_number_id: value.metadata.phone_number_id,
-          message_id: value.statuses[0].id,
-          message_timestamp: value.statuses[0].timestamp,
-          message_recipient_id: value.statuses[0].recipient_id,
-          conversation_id: value.statuses[0].conversation.id,
-          conversation_origin: value.statuses[0].conversation.origin.type,
-          pricing_billable: value.statuses[0].pricing.billable,
-          pricing_pricing_model: value.statuses[0].pricing.pricing_model,
-          pricing_category: value.statuses[0].pricing.category,
-          pricing_type: value.statuses[0].pricing.type,
+          message_id: status0.id,
+          message_timestamp: status0.timestamp,
+          message_recipient_id: status0.recipient_id,
+          conversation_id: status0.conversation?.id ?? "unknown",
+          conversation_origin: status0.conversation?.origin?.type ?? "unknown",
+          pricing_billable: status0.pricing?.billable ?? false,
+          pricing_pricing_model: status0.pricing?.pricing_model ?? "unknown",
+          pricing_category: status0.pricing?.category ?? "unknown",
+          pricing_type: status0.pricing?.type ?? "unknown",
         },
         data: {
-          status: value.statuses[0].status,
-          biz_opaque_callback_data: value.statuses[0].biz_opaque_callback_data,
+          status: status0.status,
+          biz_opaque_callback_data: status0.biz_opaque_callback_data ?? "",
         },
       };
     }
