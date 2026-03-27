@@ -1,6 +1,7 @@
 export * from "./client";
 export * from "./types";
 export * from "./downloadAudioMedia";
+export * from "./downloadMediaBuffer";
 export * from "./flowManagement";
 export * from "./generateWaMeLink";
 export * from "./getWabaDetailsByApiKey";
