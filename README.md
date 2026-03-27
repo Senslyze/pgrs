@@ -13,7 +13,7 @@ This boilerplate follows an `app -> features -> shared` dependency direction:
 ## Included capabilities
 
 - `POST /chat` webhook endpoint with robust callback validation
-- `POST /flow` encrypted dynamic flow endpoint (`INIT`, `data_exchange`, `BACK`, `ping`)
+- `POST /flow` encrypted dynamic flow endpoint (`INIT`, `data_exchange`, `BACK`, `ping`, `complete`)
 - Flow crypto helpers (decrypt request / encrypt response)
 - Reusable WhatsApp API utility set in `src/shared/whatsapp/apis/`
 - Reusable callback parsing/adaptation utility set in `src/shared/whatsapp/callbacks/`
@@ -27,6 +27,29 @@ This boilerplate follows an `app -> features -> shared` dependency direction:
 - install deps: `bun install`
 - start server: `bun run dev`
 - run tests: `bun test tests`
+
+## Municipality bot runbook
+
+This service runs the Municipality pothole → location → Flow form → submit → forward journey.
+
+### Endpoints
+
+- `GET /health`
+- `POST /chat` (WhatsApp webhook)
+- `POST /flow` (WhatsApp Flow encrypted endpoint)
+
+### Required env vars
+
+- `PRIVATE_PEM_KEY`: RSA private key used by `/flow`
+- `WHATSAPP_API_BASE_URL`, `WHATSAPP_API_KEY`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_FLOW_MODE`
+- `MUNICIPALITY_FLOW_ID`: WhatsApp Flow ID for `flows/grievance/municipality_pothole.flow.json`
+
+### Optional env vars
+
+- `OPENAI_API_KEY`: enables pothole image validation (if absent, image is accepted with default priority)
+- `MUNICIPALITY_BACKEND_ENABLED=true`
+- `MUNICIPALITY_BACKEND_URL`: external backend base URL
+- `MUNICIPALITY_SERVICE_TOKEN`: Bearer token for external backend
 
 ## Notable paths
 

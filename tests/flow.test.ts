@@ -9,9 +9,10 @@ import {
 import { z } from "zod";
 import { flowTestKeyPair } from "./testKeys";
 
-const app = (await import("../src/main")).default;
+const appModule = await import("../src/main");
+const app = appModule.default;
 const AUTH_TAG_LENGTH = 16;
-const HELLO_SCREEN_ID = "DYNAMIC_HELLO_WORLD";
+const MUNICIPALITY_SCREEN_ID = "pothole_confirmation";
 const flowResponseBodySchema = z.record(z.string(), z.unknown());
 
 const createEncryptedFlowRequest = (decryptedBody: Record<string, unknown>) => {
@@ -71,7 +72,7 @@ const flowActionBasePayload = {
 };
 
 describe("POST /flow", () => {
-  it("handles INIT and returns encrypted hello screen", async () => {
+  it("handles INIT and returns encrypted municipality screen", async () => {
     const encryptedPayload = createEncryptedFlowRequest({
       ...flowActionBasePayload,
       action: "INIT",
@@ -94,9 +95,10 @@ describe("POST /flow", () => {
     );
     const parsedResponse = flowResponseBodySchema.parse(decryptedResponse);
 
-    expect(parsedResponse.screen).toBe(HELLO_SCREEN_ID);
-    expect(parsedResponse.data).toEqual({
-      hello_text: "Hello World",
+    expect(parsedResponse.screen).toBe(MUNICIPALITY_SCREEN_ID);
+    // Validate presence of key fields for flow JSON contract.
+    expect(parsedResponse.data).toMatchObject({
+      department: "Municipality - Road Infrastructure",
     });
   });
 
@@ -151,10 +153,7 @@ describe("POST /flow", () => {
     );
     const parsedResponse = flowResponseBodySchema.parse(decryptedResponse);
 
-    expect(parsedResponse.screen).toBe(HELLO_SCREEN_ID);
-    expect(parsedResponse.data).toEqual({
-      hello_text: "Hello World",
-    });
+    expect(parsedResponse.screen).toBe(MUNICIPALITY_SCREEN_ID);
   });
 
   it("handles BACK", async () => {
@@ -180,9 +179,49 @@ describe("POST /flow", () => {
     );
     const parsedResponse = flowResponseBodySchema.parse(decryptedResponse);
 
-    expect(parsedResponse.screen).toBe(HELLO_SCREEN_ID);
-    expect(parsedResponse.data).toEqual({
-      hello_text: "Hello World",
+    expect(parsedResponse.screen).toBe(MUNICIPALITY_SCREEN_ID);
+  });
+
+  it("handles complete and returns success payload", async () => {
+    const encryptedPayload = createEncryptedFlowRequest({
+      ...flowActionBasePayload,
+      action: "complete",
+      screen: MUNICIPALITY_SCREEN_ID,
+      payload: {
+        name: "Test User",
+        number: "919999999999",
+        dateOfRegistration: "2026-03-25",
+        department: "Municipality - Road Infrastructure",
+        priority: "high",
+        subject: "Road Infrastructure - Pothole Repair",
+        subSubject: "Pothole/Road Surface Damage",
+        grievanceAddress: "Test address",
+        age: 30,
+        gender: "male",
+        remark: "Submitted from test",
+      },
+    });
+
+    const response = await app.request("/flow", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(encryptedPayload.requestBody),
+    });
+
+    expect(response.status).toBe(200);
+    const encryptedResponse = await response.text();
+    const decryptedResponse = decryptFlowResponse(
+      encryptedResponse,
+      encryptedPayload.aesKey,
+      encryptedPayload.initialVector
+    );
+    const parsedResponse = flowResponseBodySchema.parse(decryptedResponse);
+
+    expect(parsedResponse.screen).toBe(MUNICIPALITY_SCREEN_ID);
+    expect(parsedResponse.data).toMatchObject({
+      status: "success",
     });
   });
 });

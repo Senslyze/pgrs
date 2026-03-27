@@ -1,7 +1,9 @@
 import { describe, expect, it } from "bun:test";
 
 const getFlatConfig = async () => {
-  const eslintConfigModule = await import("../eslint.config.mjs");
+  // eslint.config.mjs is a JS module; tests only need runtime shape.
+  // @ts-expect-error - no type declarations for eslint flat config module
+  const eslintConfigModule = (await import("../eslint.config.mjs")) as { default: unknown };
   const importedConfig = eslintConfigModule.default;
 
   return Array.isArray(importedConfig) ? importedConfig : [importedConfig];
