@@ -84,17 +84,51 @@ export const RecommendPropertyFlowResponseSchema = z.object({
     .array(z.string().regex(/^[a-z0-9_]+$/, "Amenity ID must be lowercase alphanumeric with underscores"))
     .optional(),
   flow_token: z.string().min(1, "Flow token is required"),
+}).refine(
+  (data) =>
+    data.Property !== undefined ||
+    data.Budget !== undefined ||
+    data.location !== undefined ||
+    data.amenities !== undefined,
+  {
+    message: "At least one recommend_property field is required",
+  }
+);
+
+export const MunicipalityGrievanceFlowResponseSchema = z.object({
+  name: z.string().optional(),
+  number: z.string().optional(),
+  dateOfRegistration: z.string().optional(),
+  department: z.string().optional(),
+  priority: z.string().optional(),
+  subject: z.string().optional(),
+  subSubject: z.string().optional(),
+  grievanceAddress: z.string().optional(),
+  age: z.union([z.number(), z.string()]).optional(),
+  gender: z.string().optional(),
+  remark: z.string().optional(),
+  flow_token: z.string().min(1, "Flow token is required"),
 });
 
 export type BookVisitFlowResponseData = z.infer<typeof BookVisitFlowResponseSchema>;
 export type RecommendPropertyFlowResponseData = z.infer<typeof RecommendPropertyFlowResponseSchema>;
+export type MunicipalityGrievanceFlowResponseData = z.infer<typeof MunicipalityGrievanceFlowResponseSchema>;
 
 export const parseFlowResponse = (
   responseJson: unknown
 ):
   | { flowType: "book_visit"; flowData: BookVisitFlowResponseData | null; errorMessage?: string }
   | { flowType: "recommend_property"; flowData: RecommendPropertyFlowResponseData }
+  | { flowType: "municipality_grievance"; flowData: MunicipalityGrievanceFlowResponseData }
   | null => {
+  const municipalityResult = MunicipalityGrievanceFlowResponseSchema.safeParse(responseJson);
+  if (municipalityResult.success) {
+    return {
+      flowType: "municipality_grievance",
+      flowData: municipalityResult.data,
+    };
+  }
+
   const bookVisitResult = BookVisitFlowResponseSchema.safeParse(responseJson);
   const isBookVisitFlow =
     bookVisitResult.success ||
