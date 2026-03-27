@@ -1,44 +1,190 @@
 {
-  "version": "7.0",
+  "version": "7.2",
+  "data_api_version": "3.0",
+  "routing_model": {},
   "screens": [
     {
-      "id": "DYNAMIC_HELLO_WORLD",
-      "title": "Hello World Screen",
+      "id": "pothole_confirmation",
       "terminal": true,
+      "title": "Municipality Grievance Report",
       "data": {
-        "hello_text": "${data.hello_text}"
+        "name": { "type": "string", "__example__": "" },
+        "number": { "type": "string", "__example__": "" },
+        "dateOfRegistration": { "type": "string", "__example__": "2024-12-01" },
+        "department": {
+          "type": "string",
+          "__example__": "Municipality - Road Infrastructure"
+        },
+        "priority": { "type": "string", "__example__": "medium" },
+        "subject": {
+          "type": "string",
+          "__example__": "Road Infrastructure - Pothole Repair"
+        },
+        "subSubject": {
+          "type": "string",
+          "__example__": "Pothole/Road Surface Damage"
+        },
+        "grievanceAddress": { "type": "string", "__example__": "" },
+        "age": { "type": "number", "__example__": 8 },
+        "gender": { "type": "string", "__example__": "" },
+        "remark": { "type": "string", "__example__": "" }
       },
       "layout": {
         "type": "SingleColumnLayout",
         "children": [
           {
             "type": "TextHeading",
-            "text": "Welcome to WhatsApp Flows"
+            "text": "Municipality Grievance Report"
           },
           {
-            "type": "TextBody",
-            "text": "${data.hello_text}"
+            "type": "CalendarPicker",
+            "name": "dateOfRegistration",
+            "label": "Date of Registration",
+            "helper-text": "Pre-filled with current date (editable) - Select registration date",
+            "required": false,
+            "enabled": true,
+            "mode": "single",
+            "init-value": "${data.dateOfRegistration}",
+            "min-date": "2024-11-01",
+            "max-date": "2030-12-31",
+            "unavailable-dates": ["2024-12-25", "2025-01-01", "2024-11-28"],
+            "include-days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            "on-select-action": {
+              "name": "data_exchange",
+              "payload": {
+                "dateOfRegistration": "${data.dateOfRegistration}"
+              }
+            }
           },
           {
-            "type": "Button",
-            "id": "NEXT_BUTTON",
-            "text": "Continue",
-            "on-click": {
-              "actions": [
-                {
-                  "name": "navigate",
-                  "next_screen": {
-                    "id": "DYNAMIC_HELLO_WORLD"
+            "type": "Form",
+            "name": "pothole_report_form",
+            "init-values": {
+              "name": "${data.name}",
+              "number": "${data.number}",
+              "department": "${data.department}",
+              "priority": "${data.priority}",
+              "subject": "${data.subject}",
+              "subSubject": "${data.subSubject}",
+              "grievanceAddress": "${data.grievanceAddress}",
+              "age": "${data.age}",
+              "gender": "${data.gender}",
+              "remark": "${data.remark}"
+            },
+            "children": [
+              {
+                "type": "TextInput",
+                "label": "Name",
+                "name": "name",
+                "enabled": true,
+                "required": false
+              },
+              {
+                "type": "TextInput",
+                "label": "Phone Number",
+                "name": "number",
+                "enabled": true,
+                "required": false,
+                "input-type": "phone"
+              },
+              {
+                "type": "TextInput",
+                "label": "Department",
+                "name": "department",
+                "enabled": true,
+                "required": false
+              },
+              {
+                "type": "Dropdown",
+                "label": "Priority",
+                "name": "priority",
+                "enabled": true,
+                "required": false,
+                "data-source": [
+                  { "id": "low", "title": "Low" },
+                  { "id": "medium", "title": "Medium" },
+                  { "id": "high", "title": "High" },
+                  { "id": "critical", "title": "Critical" }
+                ]
+              },
+              {
+                "type": "TextInput",
+                "label": "Subject",
+                "name": "subject",
+                "enabled": true,
+                "required": false
+              },
+              {
+                "type": "TextInput",
+                "label": "Sub Subject",
+                "name": "subSubject",
+                "enabled": true,
+                "required": false
+              },
+              {
+                "type": "TextArea",
+                "label": "Grievance Address",
+                "name": "grievanceAddress",
+                "enabled": true,
+                "required": false,
+                "max-length": 500,
+                "helper-text": "Pre-filled from shared location (editable)"
+              },
+              {
+                "type": "TextInput",
+                "label": "Age",
+                "name": "age",
+                "enabled": true,
+                "required": false,
+                "input-type": "number",
+                "helper-text": "Please enter your age (optional)"
+              },
+              {
+                "type": "RadioButtonsGroup",
+                "name": "gender",
+                "label": "Gender",
+                "enabled": true,
+                "required": false,
+                "data-source": [
+                  { "id": "male", "title": "Male" },
+                  { "id": "female", "title": "Female" },
+                  { "id": "other", "title": "Other" },
+                  { "id": "prefer_not_to_say", "title": "Prefer not to say" }
+                ]
+              },
+              {
+                "type": "TextArea",
+                "name": "remark",
+                "label": "Remark",
+                "enabled": true,
+                "required": false,
+                "helper-text": "Pre-filled with basic info - add more details if needed (editable)",
+                "max-length": 1000
+              },
+              {
+                "type": "Footer",
+                "label": "Submit Grievance",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "name": "${form.name}",
+                    "number": "${form.number}",
+                    "dateOfRegistration": "${data.dateOfRegistration}",
+                    "department": "${form.department}",
+                    "priority": "${form.priority}",
+                    "subject": "${form.subject}",
+                    "subSubject": "${form.subSubject}",
+                    "grievanceAddress": "${form.grievanceAddress}",
+                    "age": "${form.age}",
+                    "gender": "${form.gender}",
+                    "remark": "${form.remark}"
                   }
                 }
-              ]
-            }
+              }
+            ]
           }
         ]
       }
     }
-  ],
-  "routing_model": {
-    "DYNAMIC_HELLO_WORLD": []
-  }
+  ]
 }
