@@ -1,49 +1,26 @@
 import { Hono } from "hono";
-import { z } from "zod";
 import { env } from "../../../shared/lib/env";
 import { logger } from "../../../shared/lib/logger";
 import { decryptFlowRequest, encryptFlowResponse, normalizePrivatePemKey } from "../lib/crypto";
-import {
-  HELLO_SCREEN_ID,
-  HELLO_WORLD_TEXT,
-  pingResponsePayloadSchema,
-  screenDataResponsePayloadSchema,
-} from "../lib/schemas";
+import { getMunicipalityFlowResponse } from "../lib/municipality/flowHandler";
 
 const privatePemKey = normalizePrivatePemKey(env.privatePemKey);
-
-const getHelloWorldResponsePayload = () =>
-  ({
-    screen: HELLO_SCREEN_ID,
-    data: {
-      hello_text: HELLO_WORLD_TEXT,
-    },
-  }) satisfies z.infer<typeof screenDataResponsePayloadSchema>;
-
-const getFlowResponsePayloadForAction = (action: "INIT" | "data_exchange" | "BACK" | "ping") => {
-  switch (action) {
-    case "ping":
-      return {
-        version: "3.0",
-        data: {
-          status: "active",
-        },
-      } satisfies z.infer<typeof pingResponsePayloadSchema>;
-    case "INIT":
-      return getHelloWorldResponsePayload();
-    case "data_exchange":
-      return getHelloWorldResponsePayload();
-    case "BACK":
-      return getHelloWorldResponsePayload();
-    default:
-      return action satisfies never;
-  }
-};
 
 export const flowRouter = new Hono();
 
 flowRouter.post("/", async (c) => {
   try {
+    // Access log to confirm whether WhatsApp ever hits this endpoint.
+    logger.info(
+      {
+        method: c.req.method,
+        path: new URL(c.req.url).pathname,
+        contentType: c.req.header("content-type"),
+        userAgent: c.req.header("user-agent"),
+      },
+      "Flow endpoint hit"
+    );
+
     const body = await c.req.json();
     const decryptedRequest = decryptFlowRequest(body, privatePemKey);
 
@@ -60,7 +37,11 @@ flowRouter.post("/", async (c) => {
         );
       }
 
-      logger.error({ err: decryptedRequest.err }, errorMessage);
+      const userAgent = c.req.header("user-agent");
+      const errObj = decryptedRequest.err as any;
+      const opensslReason = typeof errObj?.reason === "string" ? errObj.reason : undefined;
+      const log = opensslReason === "DATA_TOO_LARGE_FOR_MODULUS" ? logger.warn : logger.error;
+      log({ err: decryptedRequest.err, userAgent, opensslReason }, errorMessage);
       if ("retryWithKeyRefresh" in decryptedRequest) {
         return c.json(
           {
@@ -80,7 +61,22 @@ flowRouter.post("/", async (c) => {
       );
     }
 
-    const responsePayload = getFlowResponsePayloadForAction(decryptedRequest.decryptedBody.action);
+    const decryptedBody = decryptedRequest.decryptedBody as any;
+    logger.info(
+      {
+        action: decryptedBody.action,
+        flowToken: "flow_token" in decryptedBody ? decryptedBody.flow_token : undefined,
+        screen: "screen" in decryptedBody ? decryptedBody.screen : undefined,
+      },
+      "Flow request decrypted"
+    );
+    const responsePayload = await getMunicipalityFlowResponse({
+      action: decryptedBody.action,
+      flow_token: "flow_token" in decryptedBody ? decryptedBody.flow_token : undefined,
+      screen: "screen" in decryptedBody ? decryptedBody.screen : undefined,
+      data: "data" in decryptedBody ? decryptedBody.data : undefined,
+      payload: "payload" in decryptedBody ? decryptedBody.payload : undefined,
+    });
     const encryptedResponse = encryptFlowResponse(
       responsePayload,
       decryptedRequest.aesKey,
