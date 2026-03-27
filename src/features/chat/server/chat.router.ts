@@ -7,10 +7,10 @@ import {
 } from "../../../shared/whatsapp/callbacks/parseCallback";
 import {
   adaptCallbackToLegacyFormat,
-  type ParsedMessageReceived,
   type ParsedWhatsAppCallback,
 } from "../../../shared/whatsapp/callbacks/adaptCallbackToLegacyFormat";
-import { sendTextMessage } from "../../../shared/whatsapp/apis/sendTextMessage";
+import { handleMunicipalityMessage } from "../../municipality/lib/municipalityChatHandler";
+import { handleMunicipalityFlowResponse } from "../../municipality/lib/municipalityFlowResponseHandler";
 
 const webhookAckResponseSchema = z.object({
   success: z.literal(true),
@@ -18,7 +18,6 @@ const webhookAckResponseSchema = z.object({
 });
 
 const ACK_MESSAGE = "WhatsApp callback processed";
-const HELLO_WORLD_REPLY = "Hello World";
 
 const getWebhookAckResponse = (message = ACK_MESSAGE) =>
   webhookAckResponseSchema.parse({
@@ -26,31 +25,44 @@ const getWebhookAckResponse = (message = ACK_MESSAGE) =>
     message,
   });
 
-const getNormalizedMessageText = (parsedMessage: ParsedMessageReceived) => parsedMessage.message.trim().toLowerCase();
+const processedMessageIds = new Set<string>();
+const processingMessageIds = new Set<string>();
+const MAX_PROCESSED_MESSAGE_IDS = 2000;
 
-const isSimpleGreeting = (parsedMessage: ParsedMessageReceived) =>
-  parsedMessage.messageType === "text" && getNormalizedMessageText(parsedMessage) === "hi";
+const markMessageProcessed = (messageId: string) => {
+  processedMessageIds.add(messageId);
+  if (processedMessageIds.size > MAX_PROCESSED_MESSAGE_IDS) {
+    const first = processedMessageIds.values().next().value;
+    if (typeof first === "string") processedMessageIds.delete(first);
+  }
+};
 
 const processIncomingMessage = async (parsedCallback: ParsedWhatsAppCallback) => {
-  if (parsedCallback.type !== "message_received") {
+  if (parsedCallback.type === "message_received") {
+    await handleMunicipalityMessage(parsedCallback);
     return;
   }
 
-  if (!isSimpleGreeting(parsedCallback)) {
-    return;
+  if (parsedCallback.type === "flow_response" && parsedCallback.flowType === "municipality_grievance") {
+    await handleMunicipalityFlowResponse(parsedCallback);
   }
-
-  await sendTextMessage(parsedCallback.from, HELLO_WORLD_REPLY);
-  logger.info(
-    { from: parsedCallback.from, text: getNormalizedMessageText(parsedCallback) },
-    "Greeting detected and replied using outbound WhatsApp API"
-  );
 };
 
 export const chatRouter = new Hono();
 
 chatRouter.post("/", async (c) => {
   try {
+    // Access log to confirm whether WhatsApp hits this webhook on submit (nfm_reply).
+    logger.info(
+      {
+        method: c.req.method,
+        path: new URL(c.req.url).pathname,
+        contentType: c.req.header("content-type"),
+        userAgent: c.req.header("user-agent"),
+      },
+      "Chat webhook hit"
+    );
+
     const body = await c.req.json();
     const transformedCallback = await getTransformedParsedWhatsappCallback(body);
     const parsedCallback = adaptCallbackToLegacyFormat(transformedCallback);
@@ -60,10 +72,51 @@ chatRouter.post("/", async (c) => {
       return c.json(getWebhookAckResponse("Ignored unsupported WhatsApp callback payload"));
     }
 
+    logger.info(
+      {
+        parsedType: parsedCallback.type,
+        messageType:
+          parsedCallback.type === "message_received"
+            ? parsedCallback.messageType
+            : parsedCallback.type === "flow_response"
+              ? parsedCallback.flowType
+              : parsedCallback.status,
+      },
+      "Chat webhook parsed callback"
+    );
+
     try {
+      // Prevent duplicate webhook retries from causing repeated outbound messages.
+      const msgId = parsedCallback.type === "message_received" ? parsedCallback.messageId : undefined;
+      if (msgId && processedMessageIds.has(msgId)) {
+        return c.json(getWebhookAckResponse("Duplicate message ignored"));
+      }
+      if (msgId && processingMessageIds.has(msgId)) {
+        return c.json(getWebhookAckResponse("Concurrent duplicate message ignored"));
+      }
+      if (msgId) processingMessageIds.add(msgId);
+
+      if (parsedCallback.type === "flow_response" && parsedCallback.flowType === "municipality_grievance") {
+        logger.info(
+          {
+            from: parsedCallback.from,
+            messageId: parsedCallback.messageId,
+            flowToken: (parsedCallback.flowData as any)?.flow_token,
+          },
+          "Municipality grievance flow_response received (from nfm_reply)"
+        );
+      }
+
       await processIncomingMessage(parsedCallback);
+
+      if (msgId) {
+        markMessageProcessed(msgId);
+      }
     } catch (err) {
       logger.error({ err }, "Failed to process incoming WhatsApp message event");
+    } finally {
+      const msgId = parsedCallback.type === "message_received" ? parsedCallback.messageId : undefined;
+      if (msgId) processingMessageIds.delete(msgId);
     }
 
     return c.json(getWebhookAckResponse());
