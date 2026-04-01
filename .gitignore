@@ -1,3 +1,17 @@
+# Local env / secrets
 .env
-data/keys/
-node_modules/
+
+# Dependencies / build outputs
+**/node_modules/
+**/dist/
+**/build/
+**/.turbo/
+**/.next/
+**/coverage/
+
+# OS / editor
+.DS_Store
+
+# Optional: keep old folder out of commits
+frontend_old/
+

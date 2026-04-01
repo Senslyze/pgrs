@@ -1,0 +1,758 @@
+0|senslyze-pocs-be  | 🔑 API Key: [SET]
+0|senslyze-pocs-be  | [Pinbot] → POST /messages (flow) {"recipient_type":"individual","messaging_product":"whatsapp","to":"919511707346","type":"interactive","interactive":{"type":"flow","body":{"text":"Please complete your grievance report.\n\nAll fields will be pre-filled from your previous inputs - tap any field to modify as needed:"},"action":{"name":"flow","parameters":{"flow_message_version":"3","mode":"published","flow_token":"munc_1774509062718_z4v169eu","flow_id":"2618792955138790","flow_cta":"Fill Form","flow_action":"data_exchange"}}}}
+0|senslyze-pocs-be  | 📤 Flow API response: {
+0|senslyze-pocs-be  |   messaging_product: 'whatsapp',
+0|senslyze-pocs-be  |   contacts: [ { input: '919511707346', wa_id: '919511707346' } ],
+0|senslyze-pocs-be  |   messages: [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       id: 'wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSREQ0RTIwNjE4NzhGNzVCQjlGAA=='
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | [Pinbot] ← (flow) 200 {"messaging_product":"whatsapp","contacts":[{"input":"919511707346","wa_id":"919511707346"}],"messages":[{"id":"wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSREQ0RTIwNjE4NzhGNzVCQjlGAA=="}]}
+0|senslyze-pocs-be  | 📤 Final response (plain JSON): {
+0|senslyze-pocs-be  |   "status": "municipality_flow_sent"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 📨 === WEBHOOK PAYLOAD RECEIVED ===
+0|senslyze-pocs-be  | Full request body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "statuses": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSREQ0RTIwNjE4NzhGNzVCQjlGAA==",
+0|senslyze-pocs-be  |                 "status": "sent",
+0|senslyze-pocs-be  |                 "timestamp": "1774509072",
+0|senslyze-pocs-be  |                 "recipient_id": "919511707346",
+0|senslyze-pocs-be  |                 "biz_opaque_callback_data": "{\"ud\":20216,\"pci\":0,\"source\":\"api\\/partners\",\"tid\":0,\"cat\":null,\"pid\":\"pin_b70f1f86-3c0d-450a-8d3a-612a7323ce5f\",\"ts\":1774509071}",
+0|senslyze-pocs-be  |                 "conversation": {
+0|senslyze-pocs-be  |                   "id": "83f9dc6c09342449c637097d1b0660d6",
+0|senslyze-pocs-be  |                   "expiration_timestamp": "1774509072",
+0|senslyze-pocs-be  |                   "origin": {
+0|senslyze-pocs-be  |                     "type": "service"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "pricing": {
+0|senslyze-pocs-be  |                   "billable": false,
+0|senslyze-pocs-be  |                   "pricing_model": "PMP",
+0|senslyze-pocs-be  |                   "category": "service",
+0|senslyze-pocs-be  |                   "type": "free_customer_service"
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Headers: {
+0|senslyze-pocs-be  |   "connection": "upgrade",
+0|senslyze-pocs-be  |   "host": "poc.senslyze.com",
+0|senslyze-pocs-be  |   "content-length": "792",
+0|senslyze-pocs-be  |   "accept": "application/json, text/plain, */*",
+0|senslyze-pocs-be  |   "content-type": "application/json",
+0|senslyze-pocs-be  |   "header1": "header1_value",
+0|senslyze-pocs-be  |   "header2": "header2_value",
+0|senslyze-pocs-be  |   "user-agent": "axios/1.8.4",
+0|senslyze-pocs-be  |   "accept-encoding": "gzip, compress, deflate, br"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Query params: [Object: null prototype] {}
+0|senslyze-pocs-be  | 📨 Processing webhook body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "statuses": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSREQ0RTIwNjE4NzhGNzVCQjlGAA==",
+0|senslyze-pocs-be  |                 "status": "sent",
+0|senslyze-pocs-be  |                 "timestamp": "1774509072",
+0|senslyze-pocs-be  |                 "recipient_id": "919511707346",
+0|senslyze-pocs-be  |                 "biz_opaque_callback_data": "{\"ud\":20216,\"pci\":0,\"source\":\"api\\/partners\",\"tid\":0,\"cat\":null,\"pid\":\"pin_b70f1f86-3c0d-450a-8d3a-612a7323ce5f\",\"ts\":1774509071}",
+0|senslyze-pocs-be  |                 "conversation": {
+0|senslyze-pocs-be  |                   "id": "83f9dc6c09342449c637097d1b0660d6",
+0|senslyze-pocs-be  |                   "expiration_timestamp": "1774509072",
+0|senslyze-pocs-be  |                   "origin": {
+0|senslyze-pocs-be  |                     "type": "service"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "pricing": {
+0|senslyze-pocs-be  |                   "billable": false,
+0|senslyze-pocs-be  |                   "pricing_model": "PMP",
+0|senslyze-pocs-be  |                   "category": "service",
+0|senslyze-pocs-be  |                   "type": "free_customer_service"
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | ℹ️ Status update received, ignoring
+0|senslyze-pocs-be  | 📤 Final response (plain JSON): {
+0|senslyze-pocs-be  |   "status": "status_update_ignored"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 📨 === WEBHOOK PAYLOAD RECEIVED ===
+0|senslyze-pocs-be  | Full request body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "statuses": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSREQ0RTIwNjE4NzhGNzVCQjlGAA==",
+0|senslyze-pocs-be  |                 "status": "read",
+0|senslyze-pocs-be  |                 "timestamp": "1774509073",
+0|senslyze-pocs-be  |                 "recipient_id": "919511707346",
+0|senslyze-pocs-be  |                 "biz_opaque_callback_data": "{\"ud\":20216,\"pci\":0,\"source\":\"api\\/partners\",\"tid\":0,\"cat\":null,\"pid\":\"pin_b70f1f86-3c0d-450a-8d3a-612a7323ce5f\",\"ts\":1774509071}",
+0|senslyze-pocs-be  |                 "conversation": {
+0|senslyze-pocs-be  |                   "id": "83f9dc6c09342449c637097d1b0660d6",
+0|senslyze-pocs-be  |                   "origin": {
+0|senslyze-pocs-be  |                     "type": "service"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "pricing": {
+0|senslyze-pocs-be  |                   "billable": false,
+0|senslyze-pocs-be  |                   "pricing_model": "PMP",
+0|senslyze-pocs-be  |                   "category": "service",
+0|senslyze-pocs-be  |                   "type": "free_customer_service"
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Headers: {
+0|senslyze-pocs-be  |   "connection": "upgrade",
+0|senslyze-pocs-be  |   "host": "poc.senslyze.com",
+0|senslyze-pocs-be  |   "content-length": "756",
+0|senslyze-pocs-be  |   "accept": "application/json, text/plain, */*",
+0|senslyze-pocs-be  |   "content-type": "application/json",
+0|senslyze-pocs-be  |   "header1": "header1_value",
+0|senslyze-pocs-be  |   "header2": "header2_value",
+0|senslyze-pocs-be  |   "user-agent": "axios/1.8.4",
+0|senslyze-pocs-be  |   "accept-encoding": "gzip, compress, deflate, br"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Query params: [Object: null prototype] {}
+0|senslyze-pocs-be  | 📨 Processing webhook body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "statuses": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSREQ0RTIwNjE4NzhGNzVCQjlGAA==",
+0|senslyze-pocs-be  |                 "status": "read",
+0|senslyze-pocs-be  |                 "timestamp": "1774509073",
+0|senslyze-pocs-be  |                 "recipient_id": "919511707346",
+0|senslyze-pocs-be  |                 "biz_opaque_callback_data": "{\"ud\":20216,\"pci\":0,\"source\":\"api\\/partners\",\"tid\":0,\"cat\":null,\"pid\":\"pin_b70f1f86-3c0d-450a-8d3a-612a7323ce5f\",\"ts\":1774509071}",
+0|senslyze-pocs-be  |                 "conversation": {
+0|senslyze-pocs-be  |                   "id": "83f9dc6c09342449c637097d1b0660d6",
+0|senslyze-pocs-be  |                   "origin": {
+0|senslyze-pocs-be  |                     "type": "service"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "pricing": {
+0|senslyze-pocs-be  |                   "billable": false,
+0|senslyze-pocs-be  |                   "pricing_model": "PMP",
+0|senslyze-pocs-be  |                   "category": "service",
+0|senslyze-pocs-be  |                   "type": "free_customer_service"
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | ℹ️ Status update received, ignoring
+0|senslyze-pocs-be  | 📤 Final response (plain JSON): {
+0|senslyze-pocs-be  |   "status": "status_update_ignored"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 📥 Raw incoming body: {
+0|senslyze-pocs-be  |   "encrypted_flow_data": "nlBD7spsPf3G6bnOo+wSNrEufD+oK1xsn72nY2FeCqyzzYuUus9cVhI8d2ZY5+IgTg==",
+0|senslyze-pocs-be  |   "encrypted_aes_key": "W32CNU3PmsywbR89Px6B0R9245EJZFkw1x2m6dQorREf6UBZnLbk/sZOM8lXL/wuqSUJmhsRZ6runJUIwsFEfdcqMGJVNAr4yPjv1t2ClwHWZy8ymM1kwEOO+tGQABIZfFnyEvTZ1d/w8SQvq1cthFQLeWMM9bRyE6NONl11jnkc3dwM7qYdxlR6M05xIZUaqn16ASbeIDNjFw+x6AO/c/kPQh+t34Dka2cEJ1Xw3yRGucEl0UnQTzFS0USIRBvD9vdQlCa5WCmbrmAds+3Cbe9WOz0dA3RKPmnpcB9N+OlK9oFNePgQumxRtHf5J5/NR+7tS52i3WhOZQwMmHnYWA==",
+0|senslyze-pocs-be  |   "initial_vector": "Ag3080sy2r9wxcE7kijGgA=="
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🔓 Decrypted body: {
+0|senslyze-pocs-be  |   "version": "3.0",
+0|senslyze-pocs-be  |   "action": "ping"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🔍 Processing body: {
+0|senslyze-pocs-be  |   "version": "3.0",
+0|senslyze-pocs-be  |   "action": "ping"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | ✅ PING action detected
+0|senslyze-pocs-be  | 📤 Final response: {
+0|senslyze-pocs-be  |   "data": {
+0|senslyze-pocs-be  |     "status": "active"
+0|senslyze-pocs-be  |   }
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 📥 Raw incoming body: {
+0|senslyze-pocs-be  |   "encrypted_flow_data": "JWixaXoVRBZQjrJvikxiSBB2RSeb3yaGctLSotQ6o+vtfG8ncc984Xd6UBxSfZ9vhxYNNa6snmpb9gHPKSwV2EKYxaK3eMQ/GnMnbqYuXzDaBopse1V995Y30itBpKeHyPaCTByYDF/08g3WkdNQ5TJN",
+0|senslyze-pocs-be  |   "encrypted_aes_key": "Pivr9BVRFVBl6Iu2TkAI5550XbrQj6gEvASrLGsM+ewGfdvAlD01NF0TvU21evS/t1KjA/HrZ1oeAToZL7L3G7K6eLL0nTS7QiQTz4xXs4KmM+vJh/ZikPSUBl7vh4330Pl6s89IoUuCMc+Bm5xVUtd2ETc0k9Zo8goa99fjCpwJpIXUWAIytlEVyk+dQQhOP4H4hXuPIKOzY4ivbqVDu1j6JKpjwAmSWE6OEl9lRLrYx9i9n6fLQDJ4YZNdOAel77Y/EuPOMRoruKuohOHDtL572vfKivL/xaHM5g1vC+rq1DpGzNyi7UN/2p8VJypIo2eaD/7MfOcdpq9FmU9YXA==",
+0|senslyze-pocs-be  |   "initial_vector": "tw28j33nYlsjG1Tb5e/eAQ=="
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🔓 Decrypted body: {
+0|senslyze-pocs-be  |   "data": {},
+0|senslyze-pocs-be  |   "flow_token": "munc_1774509062718_z4v169eu",
+0|senslyze-pocs-be  |   "screen": "",
+0|senslyze-pocs-be  |   "action": "INIT",
+0|senslyze-pocs-be  |   "version": "3.0"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🔍 Processing body: {
+0|senslyze-pocs-be  |   "data": {},
+0|senslyze-pocs-be  |   "flow_token": "munc_1774509062718_z4v169eu",
+0|senslyze-pocs-be  |   "screen": "",
+0|senslyze-pocs-be  |   "action": "INIT",
+0|senslyze-pocs-be  |   "version": "3.0"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🏛️ Municipality flow detected, handling municipality flow logic
+0|senslyze-pocs-be  | ✅ Municipality INIT action - providing initial data structure
+0|senslyze-pocs-be  | 📋 Retrieved municipality data from flow cache: {
+0|senslyze-pocs-be  |   userName: 'Kunal Joshi',
+0|senslyze-pocs-be  |   phoneNumber: '919511707346',
+0|senslyze-pocs-be  |   priority: 'high',
+0|senslyze-pocs-be  |   location: {
+0|senslyze-pocs-be  |     latitude: '21.1732837',
+0|senslyze-pocs-be  |     longitude: '79.0722896',
+0|senslyze-pocs-be  |     name: undefined,
+0|senslyze-pocs-be  |     address: undefined
+0|senslyze-pocs-be  |   }
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | ✅ Successfully pre-filled municipality data: {
+0|senslyze-pocs-be  |   name: 'Kunal Joshi',
+0|senslyze-pocs-be  |   number: '919511707346',
+0|senslyze-pocs-be  |   priority: 'high',
+0|senslyze-pocs-be  |   grievanceAddress: '21.1732837, 79.0722896'
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 📂 Retrieved user profile for 919511707346 {
+0|senslyze-pocs-be  |   phoneNumber: '919511707346',
+0|senslyze-pocs-be  |   name: 'Manish Tapase',
+0|senslyze-pocs-be  |   age: 28,
+0|senslyze-pocs-be  |   gender: 'male',
+0|senslyze-pocs-be  |   lastUpdated: 2026-03-25T13:29:10.312Z
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🎂 Auto-filling age and gender from user profile for 919511707346
+0|senslyze-pocs-be  | 📤 Final response: {
+0|senslyze-pocs-be  |   "version": "3.0",
+0|senslyze-pocs-be  |   "data_api_version": "3.0",
+0|senslyze-pocs-be  |   "screen": "pothole_confirmation",
+0|senslyze-pocs-be  |   "data": {
+0|senslyze-pocs-be  |     "name": "Kunal Joshi",
+0|senslyze-pocs-be  |     "number": "919511707346",
+0|senslyze-pocs-be  |     "dateOfRegistration": "2026-03-26",
+0|senslyze-pocs-be  |     "department": "Municipality - Road Infrastructure",
+0|senslyze-pocs-be  |     "priority": "high",
+0|senslyze-pocs-be  |     "subject": "Road Infrastructure - Pothole Repair",
+0|senslyze-pocs-be  |     "subSubject": "Pothole/Road Surface Damage",
+0|senslyze-pocs-be  |     "grievanceAddress": "21.1732837, 79.0722896",
+0|senslyze-pocs-be  |     "age": 28,
+0|senslyze-pocs-be  |     "gender": "male",
+0|senslyze-pocs-be  |     "remark": "Pothole reported via WhatsApp with image validation"
+0|senslyze-pocs-be  |   }
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  |   "encrypted_aes_key": "Q5EsNcawSmNQszzr/okRC767miK/XY5rVe8ZuqXg01oyG8EWTGzRAam2+r8OoCPcBZtTSNxkvD+qUxK8lk48tEx5MuxDFqzRRYne74BdwU4E/DvLDsHeSj04jb8fazRj2dYfPVN1MQO53cAyielGydn3hf14nC6APABltiFp5K45beQRFTQlygs2a1w9pLRZisUhn3msodHXoU5ifRgecvLl+xoaopir0/E45d3vg5VBudBulLTWJzgIYP47KNHbVZkzIA4R+vaymbOJh3NCRlEHz85z3gCIN1ghwkYoAsr9+sWWp9S6i3vBwBzwxtuJAcm9x8MUs9iDWN8Jyk68tg==",
+0|senslyze-pocs-be  |   "initial_vector": "3OI4X4UjQBuAoTM+JOrKlA=="
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🔓 Decrypted body: {
+0|senslyze-pocs-be  |   "data": {
+0|senslyze-pocs-be  |     "dateOfRegistration": "2026-03-26"
+0|senslyze-pocs-be  |   },
+0|senslyze-pocs-be  |   "flow_token": "munc_1774509062718_z4v169eu",
+0|senslyze-pocs-be  |   "screen": "pothole_confirmation",
+0|senslyze-pocs-be  |   "action": "data_exchange",
+0|senslyze-pocs-be  |   "version": "3.0"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🔍 Processing body: {
+0|senslyze-pocs-be  |   "data": {
+0|senslyze-pocs-be  |     "dateOfRegistration": "2026-03-26"
+0|senslyze-pocs-be  |   },
+0|senslyze-pocs-be  |   "flow_token": "munc_1774509062718_z4v169eu",
+0|senslyze-pocs-be  |   "screen": "pothole_confirmation",
+0|senslyze-pocs-be  |   "action": "data_exchange",
+0|senslyze-pocs-be  |   "version": "3.0"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🏛️ Municipality flow detected, handling municipality flow logic
+0|senslyze-pocs-be  | 📤 Final response: {
+0|senslyze-pocs-be  |   "version": "3.0",
+0|senslyze-pocs-be  |   "data_api_version": "3.0",
+0|senslyze-pocs-be  |   "screen": "pothole_confirmation",
+0|senslyze-pocs-be  |   "data": {
+0|senslyze-pocs-be  |     "dateOfRegistration": "2026-03-26"
+0|senslyze-pocs-be  |   }
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 📨 === WEBHOOK PAYLOAD RECEIVED ===
+0|senslyze-pocs-be  | Full request body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "contacts": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "profile": {
+0|senslyze-pocs-be  |                   "name": "Kunal Joshi"
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "wa_id": "919511707346"
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ],
+0|senslyze-pocs-be  |             "messages": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "context": {
+0|senslyze-pocs-be  |                   "from": "919921316120",
+0|senslyze-pocs-be  |                   "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSREQ0RTIwNjE4NzhGNzVCQjlGAA=="
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "from": "919511707346",
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAEhggQUM2NkMzODI1N0Y2RDc5NzZERjhEQTU3M0NERjc3QzAA",
+0|senslyze-pocs-be  |                 "timestamp": "1774509540",
+0|senslyze-pocs-be  |                 "type": "interactive",
+0|senslyze-pocs-be  |                 "interactive": {
+0|senslyze-pocs-be  |                   "type": "nfm_reply",
+0|senslyze-pocs-be  |                   "nfm_reply": {
+0|senslyze-pocs-be  |                     "response_json": "{\"name\":\"Krishna\",\"number\":\"919511707346\",\"dateOfRegistration\":\"2026-03-26\",\"department\":\"Municipality - Road Infrastructure\",\"priority\":\"high\",\"subject\":\"Road Infrastructure - Pothole Repair\",\"subSubject\":\"Pothole\\/Road Surface Damage\",\"grievanceAddress\":\"21.1732837, 79.0722896\",\"age\":\"28\",\"gender\":\"male\",\"remark\":\"Pothole reported via WhatsApp with image validation\",\"flow_token\":\"munc_1774509062718_z4v169eu\"}",
+0|senslyze-pocs-be  |                     "body": "Sent",
+0|senslyze-pocs-be  |                     "name": "flow"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Headers: {
+0|senslyze-pocs-be  |   "connection": "upgrade",
+0|senslyze-pocs-be  |   "host": "poc.senslyze.com",
+0|senslyze-pocs-be  |   "content-length": "1137",
+0|senslyze-pocs-be  |   "accept": "application/json, text/plain, */*",
+0|senslyze-pocs-be  |   "content-type": "application/json",
+0|senslyze-pocs-be  |   "header1": "header1_value",
+0|senslyze-pocs-be  |   "header2": "header2_value",
+0|senslyze-pocs-be  |   "user-agent": "axios/1.8.4",
+0|senslyze-pocs-be  |   "accept-encoding": "gzip, compress, deflate, br"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Query params: [Object: null prototype] {}
+0|senslyze-pocs-be  | 📨 Processing webhook body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "contacts": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "profile": {
+0|senslyze-pocs-be  |                   "name": "Kunal Joshi"
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "wa_id": "919511707346"
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ],
+0|senslyze-pocs-be  |             "messages": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "context": {
+0|senslyze-pocs-be  |                   "from": "919921316120",
+0|senslyze-pocs-be  |                   "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSREQ0RTIwNjE4NzhGNzVCQjlGAA=="
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "from": "919511707346",
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAEhggQUM2NkMzODI1N0Y2RDc5NzZERjhEQTU3M0NERjc3QzAA",
+0|senslyze-pocs-be  |                 "timestamp": "1774509540",
+0|senslyze-pocs-be  |                 "type": "interactive",
+0|senslyze-pocs-be  |                 "interactive": {
+0|senslyze-pocs-be  |                   "type": "nfm_reply",
+0|senslyze-pocs-be  |                   "nfm_reply": {
+0|senslyze-pocs-be  |                     "response_json": "{\"name\":\"Krishna\",\"number\":\"919511707346\",\"dateOfRegistration\":\"2026-03-26\",\"department\":\"Municipality - Road Infrastructure\",\"priority\":\"high\",\"subject\":\"Road Infrastructure - Pothole Repair\",\"subSubject\":\"Pothole\\/Road Surface Damage\",\"grievanceAddress\":\"21.1732837, 79.0722896\",\"age\":\"28\",\"gender\":\"male\",\"remark\":\"Pothole reported via WhatsApp with image validation\",\"flow_token\":\"munc_1774509062718_z4v169eu\"}",
+0|senslyze-pocs-be  |                     "body": "Sent",
+0|senslyze-pocs-be  |                     "name": "flow"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 💬 Message request detected
+0|senslyze-pocs-be  | 📩 NFM Reply detected: {
+0|senslyze-pocs-be  |   type: 'nfm_reply',
+0|senslyze-pocs-be  |   nfm_reply: {
+0|senslyze-pocs-be  |     response_json: '{"name":"Krishna","number":"919511707346","dateOfRegistration":"2026-03-26","department":"Municipality - Road Infrastructure","priority":"high","subject":"Road Infrastructure - Pothole Repair","subSubject":"Pothole\\/Road Surface Damage","grievanceAddress":"21.1732837, 79.0722896","age":"28","gender":"male","remark":"Pothole reported via WhatsApp with image validation","flow_token":"munc_1774509062718_z4v169eu"}',
+0|senslyze-pocs-be  |     body: 'Sent',
+0|senslyze-pocs-be  |     name: 'flow'
+0|senslyze-pocs-be  |   }
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🏛️ Municipality flow result detected, processing completion
+0|senslyze-pocs-be  | 📝 Processing date_of_registration value: 2026-03-26 string
+0|senslyze-pocs-be  | 📝 Formatted date_of_registration: 2026-03-26T00:00:00.000Z
+0|senslyze-pocs-be  | ✅ Grievance saved to database with ID: 01KMMG5KER48H4DFVFNYVWYPTN
+0|senslyze-pocs-be  | 📤 Sending grievance to municipality backend: {
+0|senslyze-pocs-be  |   grievanceId: '01KMMG5KER48H4DFVFNYVWYPTN',
+0|senslyze-pocs-be  |   reportId: 'RPT-1774509062718-76bcsoen2',
+0|senslyze-pocs-be  |   endpoint: 'https://pgrs.senslyze.com'
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 💾 User profile saved for 919511707346 {
+0|senslyze-pocs-be  |   phoneNumber: '919511707346',
+0|senslyze-pocs-be  |   name: 'Krishna',
+0|senslyze-pocs-be  |   age: 28,
+0|senslyze-pocs-be  |   gender: 'male',
+0|senslyze-pocs-be  |   lastUpdated: 2026-03-26T07:19:02.895Z
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | [Pinbot] → POST /messages {"messaging_product":"whatsapp","to":"919511707346","type":"text","text":{"body":"*Grievance Report #RPT-1774509062718-76bcsoen2 Submitted Successfully!*\n\n*Grievance ID:* 01KMMG5KER48H4DFVFNYVWYPTN\n*Name:* Krishna\n*Contact:* 919511707346\n*Date of Registration:* 2026-03-26\n*Department:* Municipality - Road Infrastructure\n*Priority:* high\n*Subject:* Road Infrastructure - Pothole Repair\n*Sub Subject:* Pothole/Road Surface Damage\n*Grievance Address:* 21.1732837, 79.0722896\n*Age:* 28\n*Gender:* male\n*Remark:* Pothole reported via WhatsApp with image validation\n\nThank you for submitting your grievance! Our municipality team will review your complaint and take appropriate action.\n\nYou will receive updates via SMS if provided.\nTrack your grievance with ID: *01KMMG5KER48H4DFVFNYVWYPTN*\n\nType 'menu' to return to the main menu or submit another grievance."}}
+0|senslyze-pocs-be  | ✅ Municipality backend response: {
+0|senslyze-pocs-be  |   message: 'Grievance created successfully',
+0|senslyze-pocs-be  |   grievance: {
+0|senslyze-pocs-be  |     id: 'cmn755yhc0009o4vpmo9ji7cv',
+0|senslyze-pocs-be  |     report_id: 'RPT-1774509062718-76bcsoen2',
+0|senslyze-pocs-be  |     name: 'Krishna',
+0|senslyze-pocs-be  |     phone_number: '919511707346',
+0|senslyze-pocs-be  |     age: 28,
+0|senslyze-pocs-be  |     gender: 'male',
+0|senslyze-pocs-be  |     date_of_registration: '2026-03-26T07:19:03.120Z',
+0|senslyze-pocs-be  |     department: 'Municipality - Road Infrastructure',
+0|senslyze-pocs-be  |     subject: 'Road Infrastructure - Pothole Repair',
+0|senslyze-pocs-be  |     sub_subject: 'Pothole/Road Surface Damage',
+0|senslyze-pocs-be  |     grievance_address: '21.1732837, 79.0722896',
+0|senslyze-pocs-be  |     remark: 'Pothole reported via WhatsApp with image validation',
+0|senslyze-pocs-be  |     latitude: 21.1732837,
+0|senslyze-pocs-be  |     longitude: 79.0722896,
+0|senslyze-pocs-be  |     location_name: null,
+0|senslyze-pocs-be  |     location_address: null,
+0|senslyze-pocs-be  |     media_id: '1278701964230442',
+0|senslyze-pocs-be  |     image_url: 'https://partnersv1.pinbot.ai/v3/downloadMedia/1278701964230442?phone_number_id=693221880538368',
+0|senslyze-pocs-be  |     download_url: '/api/grievances/download/1278701964230442',
+0|senslyze-pocs-be  |     ai_priority: 'HIGH',
+0|senslyze-pocs-be  |     ai_confidence: 0.9,
+0|senslyze-pocs-be  |     is_image_validated: true,
+0|senslyze-pocs-be  |     status: 'OPEN',
+0|senslyze-pocs-be  |     userId: null,
+0|senslyze-pocs-be  |     is_deleted: false,
+0|senslyze-pocs-be  |     created_at: '2026-03-26T07:19:03.120Z',
+0|senslyze-pocs-be  |     updated_at: '2026-03-26T07:19:03.120Z',
+0|senslyze-pocs-be  |     user: null,
+0|senslyze-pocs-be  |     ticket: {
+0|senslyze-pocs-be  |       id: 'cmn755yhp000bo4vphikq6uqg',
+0|senslyze-pocs-be  |       grievanceId: 'cmn755yhc0009o4vpmo9ji7cv',
+0|senslyze-pocs-be  |       description: 'Ticket created automatically for grievance: RPT-1774509062718-76bcsoen2',
+0|senslyze-pocs-be  |       status: 'UN_ASSIGNED',
+0|senslyze-pocs-be  |       priority: 'HIGH',
+0|senslyze-pocs-be  |       assignedTo: null,
+0|senslyze-pocs-be  |       departmentId: 'cmirfkvmj0000o41869y998k7',
+0|senslyze-pocs-be  |       createdUserId: null,
+0|senslyze-pocs-be  |       slaDeadline: '2026-03-26T07:19:04.130Z',
+0|senslyze-pocs-be  |       isInViolation: false,
+0|senslyze-pocs-be  |       resolvedAt: null,
+0|senslyze-pocs-be  |       is_deleted: false,
+0|senslyze-pocs-be  |       AssignedAt: '2026-03-26T07:19:03.130Z',
+0|senslyze-pocs-be  |       updatedAt: '2026-03-26T07:19:03.153Z',
+0|senslyze-pocs-be  |       assignedUser: null,
+0|senslyze-pocs-be  |       department: [Object],
+0|senslyze-pocs-be  |       createdUser: null
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   }
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | ✅ Grievance successfully sent to municipality backend on attempt 1
+0|senslyze-pocs-be  | ✅ Grievance 01KMMG5KER48H4DFVFNYVWYPTN successfully synced to municipality backend
+0|senslyze-pocs-be  | [Pinbot] ← 200 {"messaging_product":"whatsapp","contacts":[{"input":"919511707346","wa_id":"919511707346"}],"messages":[{"id":"wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSMzc3MDgwNzkxQ0I3MEY0Nzg1AA=="}]}
+0|senslyze-pocs-be  | 🏛️ Complete municipality grievance submitted: {
+0|senslyze-pocs-be  |   grievanceId: '01KMMG5KER48H4DFVFNYVWYPTN',
+0|senslyze-pocs-be  |   reportId: 'RPT-1774509062718-76bcsoen2',
+0|senslyze-pocs-be  |   completeData: {
+0|senslyze-pocs-be  |     phoneNumber: '919511707346',
+0|senslyze-pocs-be  |     potholeImageId: '1278701964230442',
+0|senslyze-pocs-be  |     imageUrl: 'media_id:1278701964230442',
+0|senslyze-pocs-be  |     priority: 'high',
+0|senslyze-pocs-be  |     confidence: 0.9,
+0|senslyze-pocs-be  |     timestamp: 1774509062718,
+0|senslyze-pocs-be  |     userName: 'Kunal Joshi',
+0|senslyze-pocs-be  |     location: {
+0|senslyze-pocs-be  |       latitude: 21.1732837,
+0|senslyze-pocs-be  |       longitude: 79.0722896,
+0|senslyze-pocs-be  |       name: undefined,
+0|senslyze-pocs-be  |       address: undefined
+0|senslyze-pocs-be  |     },
+0|senslyze-pocs-be  |     reportId: 'RPT-1774509062718-76bcsoen2',
+0|senslyze-pocs-be  |     flowToken: 'munc_1774509062718_z4v169eu',
+0|senslyze-pocs-be  |     name: 'Krishna',
+0|senslyze-pocs-be  |     number: '919511707346',
+0|senslyze-pocs-be  |     dateOfRegistration: '2026-03-26',
+0|senslyze-pocs-be  |     department: 'Municipality - Road Infrastructure',
+0|senslyze-pocs-be  |     subject: 'Road Infrastructure - Pothole Repair',
+0|senslyze-pocs-be  |     subSubject: 'Pothole/Road Surface Damage',
+0|senslyze-pocs-be  |     grievanceAddress: '21.1732837, 79.0722896',
+0|senslyze-pocs-be  |     age: '28',
+0|senslyze-pocs-be  |     gender: 'male',
+0|senslyze-pocs-be  |     remark: 'Pothole reported via WhatsApp with image validation',
+0|senslyze-pocs-be  |     submissionTimestamp: '2026-03-26T07:19:02.896Z',
+0|senslyze-pocs-be  |     grievanceId: '01KMMG5KER48H4DFVFNYVWYPTN'
+0|senslyze-pocs-be  |   },
+0|senslyze-pocs-be  |   submissionTime: '2026-03-26T07:19:04.560Z',
+0|senslyze-pocs-be  |   aiAnalysis: { priority: 'high', confidence: 0.9, imageValidated: true }
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 🧽 Cleaned up flow cache data for token: munc_1774509062718_z4v169eu
+0|senslyze-pocs-be  | ✅ Municipality flow completion processed successfully
+0|senslyze-pocs-be  | 📤 Final response (plain JSON): {
+0|senslyze-pocs-be  |   "status": "municipality_flow_completed"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 📨 === WEBHOOK PAYLOAD RECEIVED ===
+0|senslyze-pocs-be  | Full request body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "statuses": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSMzc3MDgwNzkxQ0I3MEY0Nzg1AA==",
+0|senslyze-pocs-be  |                 "status": "sent",
+0|senslyze-pocs-be  |                 "timestamp": "1774509544",
+0|senslyze-pocs-be  |                 "recipient_id": "919511707346",
+0|senslyze-pocs-be  |                 "biz_opaque_callback_data": "{\"ud\":20216,\"pci\":0,\"source\":\"api\\/partners\",\"tid\":0,\"cat\":null,\"pid\":\"pin_5b668f12-752a-49ea-9fbd-5405b8b9ca83\",\"ts\":1774509542}",
+0|senslyze-pocs-be  |                 "conversation": {
+0|senslyze-pocs-be  |                   "id": "4329fbe5fcf0736611975fb008e1c8bd",
+0|senslyze-pocs-be  |                   "expiration_timestamp": "1774509544",
+0|senslyze-pocs-be  |                   "origin": {
+0|senslyze-pocs-be  |                     "type": "service"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "pricing": {
+0|senslyze-pocs-be  |                   "billable": false,
+0|senslyze-pocs-be  |                   "pricing_model": "PMP",
+0|senslyze-pocs-be  |                   "category": "service",
+0|senslyze-pocs-be  |                   "type": "free_customer_service"
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Headers: {
+0|senslyze-pocs-be  |   "connection": "upgrade",
+0|senslyze-pocs-be  |   "host": "poc.senslyze.com",
+0|senslyze-pocs-be  |   "content-length": "792",
+0|senslyze-pocs-be  |   "accept": "application/json, text/plain, */*",
+0|senslyze-pocs-be  |   "content-type": "application/json",
+0|senslyze-pocs-be  |   "header1": "header1_value",
+0|senslyze-pocs-be  |   "header2": "header2_value",
+0|senslyze-pocs-be  |   "user-agent": "axios/1.8.4",
+0|senslyze-pocs-be  |   "accept-encoding": "gzip, compress, deflate, br"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Query params: [Object: null prototype] {}
+0|senslyze-pocs-be  | 📨 Processing webhook body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "statuses": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSMzc3MDgwNzkxQ0I3MEY0Nzg1AA==",
+0|senslyze-pocs-be  |                 "status": "sent",
+0|senslyze-pocs-be  |                 "timestamp": "1774509544",
+0|senslyze-pocs-be  |                 "recipient_id": "919511707346",
+0|senslyze-pocs-be  |                 "biz_opaque_callback_data": "{\"ud\":20216,\"pci\":0,\"source\":\"api\\/partners\",\"tid\":0,\"cat\":null,\"pid\":\"pin_5b668f12-752a-49ea-9fbd-5405b8b9ca83\",\"ts\":1774509542}",
+0|senslyze-pocs-be  |                 "conversation": {
+0|senslyze-pocs-be  |                   "id": "4329fbe5fcf0736611975fb008e1c8bd",
+0|senslyze-pocs-be  |                   "expiration_timestamp": "1774509544",
+0|senslyze-pocs-be  |                   "origin": {
+0|senslyze-pocs-be  |                     "type": "service"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "pricing": {
+0|senslyze-pocs-be  |                   "billable": false,
+0|senslyze-pocs-be  |                   "pricing_model": "PMP",
+0|senslyze-pocs-be  |                   "category": "service",
+0|senslyze-pocs-be  |                   "type": "free_customer_service"
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | ℹ️ Status update received, ignoring
+0|senslyze-pocs-be  | 📤 Final response (plain JSON): {
+0|senslyze-pocs-be  |   "status": "status_update_ignored"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | 📨 === WEBHOOK PAYLOAD RECEIVED ===
+0|senslyze-pocs-be  | Full request body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "statuses": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSMzc3MDgwNzkxQ0I3MEY0Nzg1AA==",
+0|senslyze-pocs-be  |                 "status": "read",
+0|senslyze-pocs-be  |                 "timestamp": "1774509544",
+0|senslyze-pocs-be  |                 "recipient_id": "919511707346",
+0|senslyze-pocs-be  |                 "biz_opaque_callback_data": "{\"ud\":20216,\"pci\":0,\"source\":\"api\\/partners\",\"tid\":0,\"cat\":null,\"pid\":\"pin_5b668f12-752a-49ea-9fbd-5405b8b9ca83\",\"ts\":1774509542}",
+0|senslyze-pocs-be  |                 "conversation": {
+0|senslyze-pocs-be  |                   "id": "4329fbe5fcf0736611975fb008e1c8bd",
+0|senslyze-pocs-be  |                   "origin": {
+0|senslyze-pocs-be  |                     "type": "service"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "pricing": {
+0|senslyze-pocs-be  |                   "billable": false,
+0|senslyze-pocs-be  |                   "pricing_model": "PMP",
+0|senslyze-pocs-be  |                   "category": "service",
+0|senslyze-pocs-be  |                   "type": "free_customer_service"
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Headers: {
+0|senslyze-pocs-be  |   "connection": "upgrade",
+0|senslyze-pocs-be  |   "host": "poc.senslyze.com",
+0|senslyze-pocs-be  |   "content-length": "756",
+0|senslyze-pocs-be  |   "accept": "application/json, text/plain, */*",
+0|senslyze-pocs-be  |   "content-type": "application/json",
+0|senslyze-pocs-be  |   "header1": "header1_value",
+0|senslyze-pocs-be  |   "header2": "header2_value",
+0|senslyze-pocs-be  |   "user-agent": "axios/1.8.4",
+0|senslyze-pocs-be  |   "accept-encoding": "gzip, compress, deflate, br"
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | Query params: [Object: null prototype] {}
+0|senslyze-pocs-be  | 📨 Processing webhook body: {
+0|senslyze-pocs-be  |   "object": "whatsapp_business_account",
+0|senslyze-pocs-be  |   "entry": [
+0|senslyze-pocs-be  |     {
+0|senslyze-pocs-be  |       "id": "561139917064533",
+0|senslyze-pocs-be  |       "changes": [
+0|senslyze-pocs-be  |         {
+0|senslyze-pocs-be  |           "value": {
+0|senslyze-pocs-be  |             "messaging_product": "whatsapp",
+0|senslyze-pocs-be  |             "metadata": {
+0|senslyze-pocs-be  |               "display_phone_number": "919921316120",
+0|senslyze-pocs-be  |               "phone_number_id": "693221880538368"
+0|senslyze-pocs-be  |             },
+0|senslyze-pocs-be  |             "statuses": [
+0|senslyze-pocs-be  |               {
+0|senslyze-pocs-be  |                 "id": "wamid.HBgMOTE5NTExNzA3MzQ2FQIAERgSMzc3MDgwNzkxQ0I3MEY0Nzg1AA==",
+0|senslyze-pocs-be  |                 "status": "read",
+0|senslyze-pocs-be  |                 "timestamp": "1774509544",
+0|senslyze-pocs-be  |                 "recipient_id": "919511707346",
+0|senslyze-pocs-be  |                 "biz_opaque_callback_data": "{\"ud\":20216,\"pci\":0,\"source\":\"api\\/partners\",\"tid\":0,\"cat\":null,\"pid\":\"pin_5b668f12-752a-49ea-9fbd-5405b8b9ca83\",\"ts\":1774509542}",
+0|senslyze-pocs-be  |                 "conversation": {
+0|senslyze-pocs-be  |                   "id": "4329fbe5fcf0736611975fb008e1c8bd",
+0|senslyze-pocs-be  |                   "origin": {
+0|senslyze-pocs-be  |                     "type": "service"
+0|senslyze-pocs-be  |                   }
+0|senslyze-pocs-be  |                 },
+0|senslyze-pocs-be  |                 "pricing": {
+0|senslyze-pocs-be  |                   "billable": false,
+0|senslyze-pocs-be  |                   "pricing_model": "PMP",
+0|senslyze-pocs-be  |                   "category": "service",
+0|senslyze-pocs-be  |                   "type": "free_customer_service"
+0|senslyze-pocs-be  |                 }
+0|senslyze-pocs-be  |               }
+0|senslyze-pocs-be  |             ]
+0|senslyze-pocs-be  |           },
+0|senslyze-pocs-be  |           "field": "messages"
+0|senslyze-pocs-be  |         }
+0|senslyze-pocs-be  |       ]
+0|senslyze-pocs-be  |     }
+0|senslyze-pocs-be  |   ]
+0|senslyze-pocs-be  | }
+0|senslyze-pocs-be  | ℹ️ Status update received, ignoring
+0|senslyze-pocs-be  | 📤 Final response (plain JSON): {
+0|senslyze-pocs-be  |   "status": "status_update_ignored"
+0|senslyze-pocs-be  | }

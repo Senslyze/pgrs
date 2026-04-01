@@ -1,0 +1,35 @@
+{
+  "name": "municipality-be",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.10.0",
+    "ts-node-dev": "^2.0.0"
+  },
+  "scripts": {
+    "dev": "bun --watch run src/index.ts"
+  },
+  "prisma": {
+    "schema": "src/Prisma/schema.prisma"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "axios": "^1.13.2",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.2.3",
+    "hono": "^4.10.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt": "^0.2.0",
+    "pino": "^10.1.0",
+    "prisma": "^6.19.0",
+    "winston": "^3.18.3",
+    "winston-daily-rotate-file": "^5.0.0",
+    "zod": "^4.1.12"
+  }
+}

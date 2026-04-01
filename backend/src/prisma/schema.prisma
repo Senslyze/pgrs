@@ -1,0 +1,168 @@
+generator client {
+    provider   = "prisma-client-js"
+    engineType = "binary"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+enum Priority {
+    LOW
+    MEDIUM
+    HIGH
+}
+
+enum GrievanceStatus {
+    OPEN
+    IN_PROGRESS
+    CLOSED
+}
+
+// unified status for all ticket types
+enum TicketStatus {
+    UN_ASSIGNED
+    ASSIGNED
+    RESPONDED
+    RESOLVED
+    RE_OPENED
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+model Department {
+    id         String   @id @default(cuid())
+    name       String
+    subject    String
+    subSubject String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    deletedAt   DateTime?
+
+    users       User[]
+    tickets     Ticket[]
+    slas        DepartmentSLADefinition[]
+    escalations DepartmentSLAEscalation[]
+}
+
+model User {
+    id           String   @id @default(cuid())
+    username     String   @unique
+    email        String   @unique
+    fullName     String
+    password     String
+    phoneNumber  String?
+    role         Role
+    departmentId String?
+    deletedAt    DateTime?
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    department                 Department?               @relation(fields: [departmentId], references: [id])
+    grievances                 Grievance[]               @relation("UserGrievances")
+    assignedTickets            Ticket[]                  @relation("AssignedTickets")
+    createdTickets             Ticket[]                  @relation("CreatedTickets")
+    escalationResponsibilities DepartmentSLAEscalation[] @relation("EscalationResponsible")
+}
+
+// Grievance Model
+model Grievance {
+    id                   String   @id @default(cuid())
+    report_id            String   @unique
+    name                 String
+    phone_number         String
+    age                  Int
+    gender               String
+    date_of_registration DateTime @default(now())
+    department           String
+    subject              String
+    sub_subject          String
+    grievance_address    String
+    remark               String
+    latitude             Float
+    longitude            Float
+    location_name        String?
+    location_address     String?
+    media_id             String?
+    image_url            String?
+    download_url         String?
+    ai_priority          Priority
+    ai_confidence        Float?
+    is_image_validated   Boolean?
+    status               GrievanceStatus?   @default(OPEN) // Direct enum usage
+    userId               String?
+    is_deleted           Boolean  @default(false)
+    created_at           DateTime @default(now())
+    updated_at           DateTime @updatedAt
+
+    user   User?   @relation("UserGrievances", fields: [userId], references: [id])
+    ticket Ticket? @relation("GrievanceToTicket")
+
+    @@map("grievances")
+}
+
+// Ticket Model (with SLA violation tracking embedded)
+model Ticket {
+    id            String   @id @default(cuid())
+    grievanceId   String   @unique // One-to-one with grievance
+    description   String?
+    status        TicketStatus   @default(UN_ASSIGNED) // Direct enum usage - synced with grievance
+    priority      Priority @default(MEDIUM)
+    assignedTo    String?
+    departmentId  String
+    createdUserId String?
+
+    // SLA Management
+    slaDeadline DateTime? // Deadline for current status based on DepartmentSLA
+
+    // SLA Violation Tracking
+    isInViolation Boolean   @default(false)
+    resolvedAt    DateTime?
+    is_deleted    Boolean   @default(false)
+
+    AssignedAt DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    // Relationships
+    grievance    Grievance  @relation("GrievanceToTicket", fields: [grievanceId], references: [id])
+    assignedUser User?      @relation("AssignedTickets", fields: [assignedTo], references: [id])
+    department   Department @relation(fields: [departmentId], references: [id])
+    createdUser  User?      @relation("CreatedTickets", fields: [createdUserId], references: [id])
+
+    @@map("tickets")
+}
+
+// DepartmentSLA - defines time limits for each status
+model DepartmentSLADefinition {
+    id           String   @id @default(cuid())
+    departmentId String
+    status       TicketStatus // Direct enum usage (ASSIGNED, RESPONDED)
+    timeLimit    Int // Time limit in seconds (stored as Int for compatibility, but represents seconds)
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    department Department @relation(fields: [departmentId], references: [id])
+
+    @@unique([departmentId, status])
+    @@map("department_slas")
+}
+
+// EscalationSetting - who to escalate to when SLA is violated
+model DepartmentSLAEscalation {
+    id                String   @id @default(cuid())
+    departmentId      String
+    status            TicketStatus // Direct enum usage
+    responsibleUserId String // Who receives escalation
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
+
+    department      Department @relation(fields: [departmentId], references: [id])
+    responsibleUser User       @relation("EscalationResponsible", fields: [responsibleUserId], references: [id])
+
+    @@unique([departmentId, status])
+    @@map("escalation_settings")
+}
